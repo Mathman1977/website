@@ -18,8 +18,6 @@
 
 
 
-    <legend><h1>{{ reeks.titel }}</h1></legend>
-
     <h1>Goed gedaan, {{ request.user|title }}! <br>
 
     <h2>
@@ -28,6 +26,13 @@
         <p class ="fout">Dit waren je foute antwoorden:
             {% for fout in foute_antwoorden %}
                         {{fout}},
+            {% endfor %}
+            </p>
+
+        <p>
+             <p class ="fout">Dit waren je slowmo antwoorden:
+            {% for slowmo in slowmo_antwoorden %}
+                        {{slowmo}},
             {% endfor %}
             </p>
 

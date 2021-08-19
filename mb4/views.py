@@ -76,22 +76,30 @@ def resultaten(request,reeks_id):
     aantal = reeks_opgaven.count()
     reeks_oefeningen = Oefening.objects.filter(student=request.user)
     juiste_opl = [opg.opl for opg in reeks_opgaven]
+    delta_opl = [opg.strtijd for opg in reeks_opgaven]
     antwoorden = [oef.antwoord for oef in reeks_oefeningen]
+    delta_antwoorden = [oef.delta for oef in reeks_oefeningen]
     foute_antwoorden = []
+    slowmo_antwoorden = []
     for i in range(len(juiste_opl)):
         if juiste_opl[i]!=antwoorden[i]:
             foute_antwoorden.append(i+1)
+    for i in range(len(juiste_opl)):
+        if delta_opl[i] < delta_antwoorden[i]:
+            slowmo_antwoorden.append(i+1)
     aantal_fouten = len(set(foute_antwoorden))
     aantal_juist = aantal - aantal_fouten
 
     print(juiste_opl)
     print(antwoorden)
     print(foute_antwoorden)
+    print(slowmo_antwoorden)
 
     context = {'title': 'Resultaten','reeks': reeks,
                         'reeks_id': reeks_id,
                         'reeks_opgaven': reeks_opgaven,
                         'foute_antwoorden':foute_antwoorden,
+                        'slowmo_antwoorden':slowmo_antwoorden,
                         'reeks_oefeningen':reeks_oefeningen,
                         'aantal':aantal,
                         'aantal_juist':aantal_juist
