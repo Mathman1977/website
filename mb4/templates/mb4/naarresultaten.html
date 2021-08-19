@@ -1,0 +1,47 @@
+{% extends "mb4/base.html" %}
+
+
+{% block header %}
+ <div class="text-center">
+    <img src="/media/costume%20hoedje%20af.png" class="rond " alt="Mathman Hoedje Af" width="30%" height="6%">
+ </div>
+{% endblock header %}
+
+
+
+{% block content %}
+<br>
+<br>
+<br>
+{% if request.user.is_authenticated %}
+
+
+    <legend><h1>{{ reeks.titel }}</h1></legend>
+
+    <h1>Je reeks  "{{ reeks.titel }}" is gedaan, {{ request.user|title }}!<br>
+     Es kijken of je het goed hebt gedaan?<br>
+    </h1>
+    <br>
+
+        <h2 style="font-size: 45px;color: red">
+            <a  class="btn-primary "href="{% url 'resultaten' reeks_id %}">NAAR JE RESULTATEN!</a>
+        </h2>
+         <input type="hidden"  name ="reeks_id" value="{{  reeks.id }}">
+            <!-- <input type="hidden"  name ="start" value="{{  start }}"> -->
+
+
+
+
+{% else %}
+        Je bent nog niet ingelogd!
+{% endif %}
+
+<br>
+<br><br>
+<br>
+<br><br>
+<br>
+<br><br>
+<br>
+<br>
+{% endblock content %}
