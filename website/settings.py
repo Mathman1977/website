@@ -27,7 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = os.environ.get('SECRET_KEY')
 SECRET_KEY = 'eda891435293b4c66aaaa8caee485b4c8781c89e99068a83'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
+# DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -83,11 +84,15 @@ WSGI_APPLICATION = 'website.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
     }
 }
 
+DATABASES['default'] = dj_database_url.config(default='postgres://hnnryfqekernhh:60785c5c64c9d4ee3399488d72f457395edfee792f2ad216037a528c698e6033@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d56m4m228gnsa3')
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
